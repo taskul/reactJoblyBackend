@@ -32,7 +32,7 @@ class User {
                   is_admin AS "isAdmin"
            FROM users
            WHERE username = $1`,
-        [username],
+        [username.toLowerCase()],
     );
 
     const user = result.rows[0];
@@ -62,7 +62,7 @@ class User {
           `SELECT username
            FROM users
            WHERE username = $1`,
-        [username],
+        [username.toLowerCase()],
     );
 
     if (duplicateCheck.rows[0]) {
@@ -82,7 +82,7 @@ class User {
            VALUES ($1, $2, $3, $4, $5, $6)
            RETURNING username, first_name AS "firstName", last_name AS "lastName", email, is_admin AS "isAdmin"`,
         [
-          username,
+          username.toLowerCase(),
           hashedPassword,
           firstName,
           lastName,

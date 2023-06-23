@@ -88,16 +88,6 @@ router.get("/:handle", async function (req, res, next) {
   }
 });
 
-// Search company by name
-router.get('/search/:compName', async function (req, res, next) {
-  try {
-    const companies = await Company.searchName(req.params.compName);
-    return res.json({companies});
-  } catch (err) {
-    return next(err);
-  };
-});
-
 /** PATCH /[handle] { fld1, fld2, ... } => { company }
  *
  * Patches company data.
