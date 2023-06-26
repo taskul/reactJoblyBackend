@@ -99,21 +99,6 @@ class Company {
     return companiesRes.rows;
   }
 
-  /** Given a search key word find a company name
-   *  that contains the key word
-   *  Returns [{ handle, name, description, numEmployees }, ...]
-   */
-  static async searchName(searchKeyWord) {
-    const results = await db.query(`
-      SELECT handle,
-             name, 
-             description,
-             num_employees AS "numEmployees"
-      FROM companies
-      WHERE name ILIKE $1
-      ORDER BY name`, ["%" + searchKeyWord + "%"])
-  }
-
   /** Given a company handle, return data about company.
    *
    * Returns { handle, name, description, numEmployees, logoUrl, jobs }
