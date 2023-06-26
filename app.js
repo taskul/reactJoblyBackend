@@ -15,18 +15,28 @@ const jobsRoutes = require("./routes/jobs");
 
 const morgan = require("morgan");
 
+// need this for specifying location of React build files
+const path = __dirname + '/views/';
+
 const app = express();
+
+// need this for specifying location of React build files
+app.use(express.static(path));
 
 app.use(cors());
 app.use(express.json());
 app.use(morgan("tiny"));
 app.use(authenticateJWT);
 
+// specifying this for react files
+app.get('/', function (req,res) {
+  res.sendFile(path + "index.html");
+});
+
 app.use("/auth", authRoutes);
 app.use("/companies", companiesRoutes);
 app.use("/users", usersRoutes);
 app.use("/jobs", jobsRoutes);
-
 
 /** Handle 404 errors -- this matches everything */
 app.use(function (req, res, next) {
